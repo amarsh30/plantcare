@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
+import 'model/category_plant.dart';
+
 class DetailPlantScreen extends StatelessWidget {
-  const DetailPlantScreen({Key? key}) : super(key: key);
+  final CategoryPlant? category;
+
+  const DetailPlantScreen({Key? key, this.category}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +22,8 @@ class DetailPlantScreen extends StatelessWidget {
                   image: DecorationImage(
                     fit: BoxFit.cover,
                     image: AssetImage(
-                      "assets/images/plant1.jpg"
-                    )
+                      category?.imageAssets ?? ""
+                    ),
                   )
                 ),
       ))

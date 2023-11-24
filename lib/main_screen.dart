@@ -3,6 +3,8 @@ import 'package:plantcare/detail_plant_screen.dart';
 import 'package:plantcare/plant_list.dart';
 import 'package:plantcare/style_theme.dart';
 
+import 'model/category_plant.dart';
+
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
 
@@ -117,8 +119,8 @@ class _MainScreenState extends State<MainScreen> {
           ),
           Flexible(
             child: plantList(
-              callBack: () {
-                moveTo();
+              callBack: (CategoryPlant selectedPlant) {
+                moveTo(selectedPlant);
               },
             ),
           )
@@ -184,11 +186,11 @@ class _MainScreenState extends State<MainScreen> {
     );
   }
 
-  void moveTo() {
-    Navigator.push<dynamic>(
+  void moveTo(CategoryPlant? selectedPlant) {
+    Navigator.push(
       context,
-      MaterialPageRoute<dynamic>(
-        builder: (BuildContext context) => const DetailPlantScreen(),
+      MaterialPageRoute(
+        builder: (context) => DetailPlantScreen(category: selectedPlant),
       ),
     );
   }

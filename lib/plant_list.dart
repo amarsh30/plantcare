@@ -3,10 +3,14 @@ import 'package:plantcare/favorite.dart';
 import 'package:plantcare/model/category_plant.dart';
 import 'package:plantcare/style_theme.dart';
 
-class plantList extends StatefulWidget {
-  const plantList({Key? key, this.callBack}) : super(key: key);
+import 'detail_plant_screen.dart';
 
-  final Function()? callBack;
+class plantList extends StatefulWidget {
+  const plantList({Key? key, required this.callBack}) : super(key: key);
+
+  // final Function()? callBack;
+  final Function(CategoryPlant selectedPlant) callBack;
+
   @override
   _plantListState createState() => _plantListState();
 }
@@ -79,10 +83,10 @@ class CategoryView extends StatelessWidget {
     this.category,
     this.animationController,
     this.animation,
-    this.callback})
+    required this.callback})
       : super(key: key);
 
-  final VoidCallback? callback;
+  final Function(CategoryPlant selectedPlant) callback;
   final CategoryPlant? category;
   final AnimationController? animationController;
   final Animation<double>? animation;
@@ -99,7 +103,10 @@ class CategoryView extends StatelessWidget {
                 0.0, 50 * (1.0 - animation!.value), 0.0),
             child: InkWell(
               splashColor: Colors.transparent,
-              onTap: callback,
+              onTap: () {
+                // Call the function to navigate to DetailPlantScreen with data
+                navigateToDetailScreen(context, category);
+              },
               child: SizedBox(
                 height: 280,
                 child: Material(
@@ -182,4 +189,14 @@ class CategoryView extends StatelessWidget {
       },
     );
   }
+}
+
+// Function to navigate to DetailPlantScreen with data
+void navigateToDetailScreen(BuildContext context, CategoryPlant? category) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => DetailPlantScreen(category: category),
+    ),
+  );
 }
